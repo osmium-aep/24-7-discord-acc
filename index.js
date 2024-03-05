@@ -2,16 +2,17 @@ const keepAlive = require("./server.js");
 const Discord = require("discord.js-selfbot-v13");
 require('dotenv').config();
 
+
 const client = new Discord.Client({
   checkUpdate: false,
 });
 
 let executedOnStart = false;
 
-let schedule = [
+let scedule = [
   {
-    startHour: 0,    // Adjusted from 6
-    startMinute: 30, // Adjusted from 0
+    startHour: 0,
+    startMinute: 30,
     startSecond: 1,
     execute: () => {
       client.user.setPresence({
@@ -26,8 +27,8 @@ let schedule = [
     },
   },
   {
-    startHour: 1,    // Adjusted from 7
-    startMinute: 30, // Adjusted from 0
+    startHour: 1,
+    startMinute: 30,
     startSecond: 1,
     execute: () => {
       client.user.setPresence({
@@ -42,8 +43,8 @@ let schedule = [
     },
   },
   {
-    startHour: 4,    // Adjusted from 9
-    startMinute: 0,  // Adjusted from 30
+    startHour: 4,
+    startMinute: 0,
     startSecond: 1,
     execute: () => {
       client.user.setPresence({
@@ -58,8 +59,8 @@ let schedule = [
     },
   },
   {
-    startHour: 5,    // Adjusted from 10
-    startMinute: 0,  // Adjusted from 30
+    startHour: 5,
+    startMinute: 0,
     startSecond: 1,
     execute: () => {
       client.user.setPresence({
@@ -74,8 +75,8 @@ let schedule = [
     },
   },
   {
-    startHour: 5,    // Adjusted from 11
-    startMinute: 30, // Adjusted from 0
+    startHour: 5,
+    startMinute: 30,
     startSecond: 1,
     execute: () => {
       client.user.setPresence({
@@ -89,9 +90,9 @@ let schedule = [
       });
     },
   },
-  {
-    startHour: 11,    // Adjusted from 16
-    startMinute: 20,  // Adjusted from 50
+    {
+    startHour: 11,
+    startMinute: 20,
     startSecond: 1,
     execute: () => {
       client.user.setPresence({
@@ -106,8 +107,8 @@ let schedule = [
     },
   },
   {
-    startHour: 11,    // Adjusted from 17
-    startMinute: 30,  // Adjusted from 0
+    startHour: 11,
+    startMinute: 30,
     startSecond: 1,
     execute: () => {
       client.user.setPresence({
@@ -122,8 +123,8 @@ let schedule = [
     },
   },
   {
-    startHour: 12,    // Adjusted from 18
-    startMinute: 30,  // Adjusted from 0
+    startHour: 12,
+    startMinute: 30,
     startSecond: 1,
     execute: () => {
       client.user.setPresence({
@@ -138,8 +139,8 @@ let schedule = [
     },
   },
   {
-    startHour: 14,    // Adjusted from 19
-    startMinute: 0,   // Adjusted from 30
+    startHour: 14,
+    startMinute: 0,
     startSecond: 1,
     execute: () => {
       client.user.setPresence({
@@ -154,8 +155,8 @@ let schedule = [
     },
   },
   {
-    startHour: 16,    // Adjusted from 22
-    startMinute: 30,  // Adjusted from 0
+    startHour: 16,
+    startMinute: 30,
     startSecond: 1,
     execute: () => {
       client.user.setPresence({
@@ -176,6 +177,7 @@ client.on("ready", () => {
 
   // Execute code on start
   if (!executedOnStart) {
+    // executeScheduledCode();
     executeOnStart();
     executedOnStart = true;
   }
@@ -183,36 +185,35 @@ client.on("ready", () => {
 
 function getTime() {
   const currentDate = new Date();
-  const currentHour = currentDate.getUTCHours();    // Use UTC methods to get GMT time
-  const currentMinutes = currentDate.getUTCMinutes();
-  const currentSeconds = currentDate.getUTCSeconds();
+  const currentHour = currentDate.getHours();
+  const currentMinutes = currentDate.getMinutes();
+  const currentSeconds = currentDate.getSeconds();
   return {
     currentHour,
     currentMinutes,
     currentSeconds,
   };
 }
-
 function executeOnStart(){
     const currentTime = getTime();
     console.log(currentTime)
-    for(let i = 0; i < schedule.length; i++){
-        if(currentTime.currentHour > schedule[i].startHour && currentTime.currentHour < schedule[i + 1].startHour){
-            schedule[i].execute();
+    for(let i = 0; i < scedule.length; i++){
+        if(currentTime.currentHour > scedule[i].startHour && currentTime.currentHour < scedule[i + 1].startHour){
+            scedule[i].execute();
             
-        }else if(currentTime.currentHour == schedule[i].startHour && currentTime.currentHour == schedule[i + 1].startHour){
-            if(currentTime.currentMinutes > schedule[i].startMinute && currentTime.currentMinutes < schedule[i + 1].startMinute){
-                schedule[i].execute();
+        }else if(currentTime.currentHour == scedule[i].startHour && currentTime.currentHour == scedule[i + 1].startHour){
+            if(currentTime.currentMinutes > scedule[i].startMinute && currentTime.currentMinutes < scedule[i + 1].startMinute){
+                scedule[i].execute();
             }
         }
     }
-}
 
+}
 function executeScheduledCode() {
   try {
     const currentTime = getTime();
-    for (let i = 0; i < schedule.length; i++) {
-      const scheduleItem = schedule[i];
+    for (let i = 0; i < scedule.length; i++) {
+      const scheduleItem = scedule[i];
 
       if (
         scheduleItem.startHour === currentTime.currentHour &&
