@@ -154,7 +154,7 @@ let schedule = [
     },
   },
   {
-    startHour: 17,    // Adjusted from 22
+    startHour: 16,    // Adjusted from 22
     startMinute: 30,  // Adjusted from 0
     startSecond: 1,
     execute: () => {
