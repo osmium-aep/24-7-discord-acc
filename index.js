@@ -233,7 +233,7 @@ setInterval(executeScheduledCode, 1000);
 
 // Error handling for client login
 try {
-  client.login(process.env["token"]);
+  client.login(process.env["TOKEN"]);
 } catch (error) {
   console.error("Error during login:", error);
 }
