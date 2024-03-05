@@ -198,12 +198,16 @@ function executeOnStart() {
     const currentTime = getTime();
     console.log(currentTime)
     for (let i = 0; i < scedule.length; i++) {
+        if(i + 1 == scedule.length){
+            break;
+        }
         if (currentTime.currentHour > scedule[i].startHour && currentTime.currentHour < scedule[i + 1].startHour) {
             scedule[i].execute();
-
+            break;
         } else if (currentTime.currentHour == scedule[i].startHour && currentTime.currentHour == scedule[i + 1].startHour) {
             if (currentTime.currentMinutes > scedule[i].startMinute && currentTime.currentMinutes < scedule[i + 1].startMinute) {
                 scedule[i].execute();
+                break;
             }
         }
     }
