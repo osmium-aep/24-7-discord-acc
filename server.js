@@ -3,7 +3,7 @@ const express = require('express');
 const app = express();
 
 app.all("/", (req, res) => {
-  res.send("Os Bot is running!");
+  res.send({statusCode: 200});
 });
 
 function keepAlive() {
